@@ -1,10 +1,14 @@
-#! /usr/bin/python3
-
 from nornir.core.task import Result, Task
 from openpyxl import load_workbook
 
 
-def wb_sdata(task: Task, workbook: str, sheetname: str, data_only=True, keep_vba=False) -> Result:
+def wb_sdata(
+    task: Task,
+    workbook: str,
+    sheetname: str,
+    data_only: bool = True,
+    keep_vba: bool = True,  
+    ) -> Result:
 
     """Loads a specific sheet from a workbook(xlsx file).
 
@@ -30,10 +34,10 @@ def wb_sdata(task: Task, workbook: str, sheetname: str, data_only=True, keep_vba
 
         There are several flags that can be used in load_workbook.
 
-        data_only: controls whether cells with formula have either the formula (default) or the value stored the last time Excel read the sheet.
+        data_only: controls whether cells with formulas have either the formula (default) or the value stored the last time Excel read the sheet.
         keep_vba: controls whether any Visual Basic elements are preserved or not (default). If they are preserved they are still not editable.
     """
-    
+
     wb_obj = load_workbook(filename=workbook, keep_vba=keep_vba, data_only=data_only)
     wsheet = wb_obj[sheetname]
 
@@ -50,6 +54,5 @@ def wb_sdata(task: Task, workbook: str, sheetname: str, data_only=True, keep_vba
             row.append(values)
         results = dict(zip(data_key, row))
         rows.append(results)
-        
-    return Result(host=task.host, result=rows)
 
+    return Result(host=task.host, result=rows)
