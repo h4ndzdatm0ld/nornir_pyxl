@@ -13,9 +13,9 @@ class Test(object):
     def test_template_file(self, nr):
         data = nr.run(task=wb_sdata, workbook=f'{data_dir}/working_example_wb.xlsx',
                         sheetname='IP_DATA')
-        print_result(data)
-        print('here!!!!!!!!!!!')
-        for v in data:
-            print(v)
-            assert v['SITE_ID'] == 'Q345501'
+
+        for host, resultlist in data.items():          
+            for x in resultlist:
+                value = x.result
+                assert value[0]['SITE_ID'] == 'Q345501'
             
