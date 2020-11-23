@@ -1,0 +1,7 @@
+---
+test-nomad:
+    port: 22
+    hostname: 192.168.1.110
+    username:
+    password:
+    platform: linux

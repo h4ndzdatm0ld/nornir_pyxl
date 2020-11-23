@@ -1,0 +1,21 @@
+[tool.poetry]
+name = "nornir_pyxl"
+version = "0.1.0"
+description = "OpenPyxl plugin for nornir"
+authors = ["Hugo <hugotinoco@icloud.com>"]
+
+[tool.poetry.dependencies]
+python = "^3.8"
+openpyxl = "^3.0.5"
+nornir = {version = "^3.0.0", allow-prereleases = true}
+
+[tool.poetry.dev-dependencies]
+pytest = "^5.2"
+black = {version = "^20.8b1", allow-prereleases = true}
+jupyter = "^1.0.0"
+pylama = "^7.7.1"
+mypy = "^0.790"
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"

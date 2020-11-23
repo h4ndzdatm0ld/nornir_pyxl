@@ -1,0 +1,7 @@
+---
+port:
+hostname:
+username: root
+password: docker
+platform: linux
+data:
