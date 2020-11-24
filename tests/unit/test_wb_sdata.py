@@ -16,6 +16,15 @@ class Test(object):
 
         for host, resultlist in data.items():          
             for x in resultlist:
-                value = x.result
-                assert value[0]['SITE_ID'] == 'Q345501'
+                value = x.result[0]
+                assert value['SITE_ID'] == 'Q345501'
             
+    def test_broken_template_file(self, nr):
+        data = nr.run(task=wb_sdata, workbook=f'{data_dir}/working_example_wb.xlsx',
+                        sheetname='IP_DATA')
+
+        for host, resultlist in data.items():          
+            for x in resultlist:
+                value = x.result[0]
+                print(value.items())
+                assert '192.168.125.1/32' not in value.values()
