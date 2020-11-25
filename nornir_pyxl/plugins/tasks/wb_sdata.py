@@ -7,8 +7,8 @@ def wb_sdata(
     workbook: str,
     sheetname: str,
     data_only: bool = True,
-    keep_vba: bool = True,  
-    ) -> Result:
+    keep_vba: bool = True,
+) -> Result:
 
     """Loads a specific sheet from a workbook(xlsx file).
 
@@ -16,20 +16,21 @@ def wb_sdata(
 
     Arguements:
 
-        workbookfile: Full path to xlsx file.py
-        sheetname:  Worksheet name within to extract data from.
-        data_only: Boolean
-        keep_vba: Boolean
+        workbookfile: Full path to .xlsx file\n
+        sheetname: Worksheet Name\n
+        data_only: Boolean\n
+        keep_vba: Boolean\n
 
     Examples:
 
-        >nr.run(task=wb_sdata, workbookfile="example-wb.xlsx',
-            sheetname='ip_data')
+        nr.run(task=wb_sdata, workbookfile="example-wb.xlsx',
+               sheetname='ip_data')
     Returns:
 
         Result object with the following attributes set:
-            * result (''list''): list of dictionaries with
-            data from the specific worksheet within the workbook.
+        * result (''list''): list of dictionaries with
+        data from the specific worksheet within the workbook.
+
     Notes:
 
         There are several flags that can be used in load_workbook.
@@ -44,7 +45,7 @@ def wb_sdata(
     data_key = []
     for value in wsheet.iter_rows(values_only=True):
         for key in value:
-            data_key.append(key)
+            data_key.append(key.strip())
         break
 
     rows = []
