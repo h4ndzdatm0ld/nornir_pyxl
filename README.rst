@@ -10,7 +10,7 @@ Installation
 .. code::
 
     pip install nornir_pyxl
-    
+
 Example
 -------
 
@@ -22,15 +22,15 @@ nr = InitNornir("config.yml")
 
 def get_structured_data(task):
 
-... data = wb_sdata(task, workbook="example-workbook.xlsx", sheetname="IP_INFORMATION")
+    data = wb_sdata(task, workbook="example-workbook.xlsx", sheetname="IP_INFORMATION")
 
-... for site_clli in data.result:
-...... print(site_clli["CLLI"])
+    for site_clli in data.result:
+        print(site_clli["CLLI"])
 
 
 def main():
 
-... nr.run(task=get_structured_data)
+    nr.run(task=get_structured_data)
 
 
 main()
