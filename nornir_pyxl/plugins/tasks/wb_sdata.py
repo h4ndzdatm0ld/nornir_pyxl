@@ -56,4 +56,6 @@ def wb_sdata(
         results = dict(zip(data_key, row))
         rows.append(results)
 
+    wb_obj.close()
+    
     return Result(host=task.host, result=rows)
