@@ -37,15 +37,22 @@ def wb_sdata(
 
         data_only: controls whether cells with formulas have either the formula (default) or the value stored the last time Excel read the sheet.
         keep_vba: controls whether any Visual Basic elements are preserved or not (default). If they are preserved they are still not editable.
+        read_only: This is hardcoded set to true, as we don't do any writing or editing of the file. This also allows the program to explicitly close the 
+                    workbook object and avoid any I/O Operation errors being raised.
     """
 
-    wb_obj = load_workbook(filename=workbook, keep_vba=keep_vba, data_only=data_only)
+    wb_obj = load_workbook(filename=workbook, keep_vba=keep_vba, data_only=data_only, read_only=True)
     wsheet = wb_obj[sheetname]
 
     data_key = []
     for value in wsheet.iter_rows(values_only=True):
         for key in value:
-            data_key.append(key.strip())
+            try:
+                key_strip = key.strip()
+                data_key.append(key_strip)
+            except AttributeError as e:
+                print(f"AttributeError on key: {key}, {e}")
+                data_key.append(key)
         break
 
     rows = []
