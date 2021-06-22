@@ -14,7 +14,7 @@ Installation
 Example
 -------
 
-from nornir_pyxl.plugins.tasks import wb_sdata
+from nornir_pyxl.plugins.tasks import pyxl_ez_data
 from nornir import InitNornir
 
 nr = InitNornir("config.yml")
@@ -22,7 +22,7 @@ nr = InitNornir("config.yml")
 
 def get_structured_data(task):
 
-    data = wb_sdata(task, workbook="example-workbook.xlsx", sheetname="IP_INFORMATION")
+    data = pyxl_ez_data(task, workbook="example-workbook.xlsx", sheetname="IP_INFORMATION")
 
     for site_clli in data.result:
         print(site_clli["CLLI"])
@@ -41,4 +41,4 @@ Plugins
 Tasks
 _____
 
-* **wb_sdata** - Loads an XLSX file and creates a list of dictionaries.
+* **pyxl_ez_data** - Loads an XLSX file and creates a list of dictionaries.

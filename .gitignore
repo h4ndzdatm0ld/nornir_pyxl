@@ -1,0 +1,9 @@
+_build
+_static
+_templates
+*.log
+nornir.log
+*.pyc
+dist/*
+.vscode/settings.json
+*__pycache__*
