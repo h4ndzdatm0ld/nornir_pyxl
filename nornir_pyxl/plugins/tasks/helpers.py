@@ -1,7 +1,15 @@
 """Helper Functions."""
-from openpyxl import load_workbook
-import sys
 from pathlib import Path
+from openpyxl import load_workbook
+
+
+def standardize(some_str):
+    """Performs several string manipulations to attempt to standardize dict keys.
+
+    Args:
+        some_str (str): Manipulated string
+    """
+    return some_str.strip().replace(" ", "_").replace("-", "_").replace("'", "").lower()
 
 
 def _calculate_reset(sheet_obj):
@@ -13,11 +21,9 @@ def _calculate_reset(sheet_obj):
     Return:
         sheet (openpyxl.worksheet): Recalculated Sheet Object
     """
-    # Calculate Dimensions
-    try:
-        sheet_obj.calculate_dimension()
-    except ValueError:
-        sheet_obj.calculate_dimension(force=True)
+    # Force Calculate Dimensions
+
+    sheet_obj.calculate_dimension(force=True)
     # Reset Dimensions
     sheet_obj.reset_dimensions()
     # Recalculate Dimensions
@@ -31,7 +37,7 @@ def _check_file(file_name):
     file_path = Path(file_name)
 
     if not file_name.endswith(".xlsx"):
-        sys.exit(f"Error: {file_path} must end with 'xlsx'.")
+        raise ValueError(f"{file_path} must end with 'xlsx'.")
     return file_path.exists()
 
 
@@ -48,15 +54,14 @@ def open_excel_wb(file_name, sheetname):
     # Check if file provided via '-f' exists.
     # If it doesn't, exit the program.
     if not _check_file(file_name):
-        sys.exit(f"{file_name} does not exist.")
+        raise ValueError(f"{file_name} does not exist.")
     # Load the workbook
     workbook = load_workbook(
         filename=file_name, read_only=True, keep_vba=False, data_only=True
     )
     # Ensure sheetname exists inside the WorkBook.
     if sheetname not in workbook.sheetnames:
-        sys.exit(f"{sheetname} does not exist.")
-
+        raise ValueError(f"{sheetname} does not exist.")
     # openpyxl.worksheet._read_only.ReadOnlyWorksheet
     # Recalculate Dimensions
     return _calculate_reset(workbook[sheetname])

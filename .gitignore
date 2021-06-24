@@ -7,3 +7,4 @@ nornir.log
 dist/*
 .vscode/settings.json
 *__pycache__*
+.coverage
