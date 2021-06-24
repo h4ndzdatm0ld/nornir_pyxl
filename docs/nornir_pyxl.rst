@@ -1,4 +1,4 @@
-nornir\_pyxl package
+nornir_pyxl package
 ====================
 
 Subpackages
