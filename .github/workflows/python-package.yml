@@ -36,9 +36,9 @@ jobs:
         pip install poetry
         poetry install --no-interaction --no-dev
     - name: shell
-      run: poetry shell
+      run: source $HOME/.poetry/env
     - name: Lint & Code Format
-      run: flake8 .
+      run: poetry run flake8 .
     - name: Test with pytest
       run: |
         poetry run pytest --cov=nornir_pyxl --color=yes -vvv
