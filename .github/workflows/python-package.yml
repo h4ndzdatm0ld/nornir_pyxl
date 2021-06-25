@@ -31,12 +31,17 @@ jobs:
       with:
         path: ~/.cache/pypoetry/virtualenvs
         key: ${{ runner.os }}-poetry-${{ hashFiles('poetry.lock') }}
+    - name: Poetry Install
+      # You may pin to the exact commit or the version.
+      # uses: knowsuchagency/poetry-install@7ed80d49910319d3e14ac262a5c81f681de48de0
+      uses: knowsuchagency/poetry-install@v2
+      with:
+        # Have poetry create a virtualenv for the project on installation.
+        create-virtualenv: false # optional, default is false
     - name: Install dependencies
       run: |
         pip install poetry
         poetry install --no-interaction --no-dev
-    - name: shell
-      run: poetry shell
     - name: Lint & Code Format
       run: poetry run flake8 .
     - name: Test with pytest
