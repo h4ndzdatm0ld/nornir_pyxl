@@ -30,8 +30,6 @@ jobs:
         poetry install --no-interaction --no-dev
     - name: Lint & Code Format
       run: |
-        echo 'Running Flake8' && \
-        poetry run flake8 . && \
         echo 'Running Black' && \
         poetry run black --check --diff . && \
         echo 'Running Yamllint' && \

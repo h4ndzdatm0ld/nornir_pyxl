@@ -5,9 +5,9 @@ name: Python application
 
 on:
   push:
-    branches: [ main ]
+    branches: [ develop ]
   pull_request:
-    branches: [ main ]
+    branches: [ develop ]
 
 jobs:
   build:
@@ -20,8 +20,6 @@ jobs:
       uses: actions/setup-python@v2
       with:
         python-version: 3.8
-    - name: Docker Compose 
-      run: docker-compose up -d batfish
     - name: Install dependencies
       run: |
         pip install poetry
