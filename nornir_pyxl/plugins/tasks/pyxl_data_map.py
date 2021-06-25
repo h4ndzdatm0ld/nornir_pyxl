@@ -15,9 +15,11 @@ def pyxl_data_map(
     min_col: int = None,
     max_col: int = None,
 ) -> Result:
-    """[summary]
+    r"""Loads a specific sheet from a workbook(xlsx file).
 
-    Args:
+    Creates a list of dictionaries using the first row as the keys.
+
+    Arguments:
         task (Task): Task
         mapping (Enum): Enum Class
         workbook (str, optional): Full Path to Excel Workbook. Defaults to None.
@@ -27,8 +29,18 @@ def pyxl_data_map(
         min_col (int, optional): min_col. Defaults to None.
         max_col (int, optional): max_col. Defaults to None.
 
+    Examples:
+        nr.run(task=pyxl_map_data, workbookfile="example-wb.xlsx',
+               sheetname='ip_data', mapping=DataMap)
+
     Returns:
-        Result: List of Dictionaries
+        Result object with the following attributes set:
+        * result (''list''): list of dictionaries with
+        data from the specific worksheet within the workbook.
+
+    Notes:
+        read_only: This is hardcoded set to true, as we don't do any writing or
+        editing of the file.
     """
     data = {}
     row_data = []
