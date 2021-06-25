@@ -29,16 +29,17 @@ jobs:
       run: |
         pip install poetry
         poetry install --no-interaction --no-dev
+        poetry shell
     - name: Lint & Code Format
       run: |
         echo 'Running Black' && \
-        poetry run black --check --diff . && \
+        black --check --diff . && \
         echo 'Running Yamllint' && \
-        poetry run yamllint . && \
+        yamllint . && \
         echo 'Running pydocstyle' && \
-        poetry run pydocstyle . && \
+        pydocstyle . && \
         echo 'Running Bandit' && \
-        poetry run bandit --recursive ./ --configfile .bandit.yml
+        bandit --recursive ./ --configfile .bandit.yml
     - name: Test with pytest
       run: |
-        poetry run pytest --cov=nornir_pyxl --color=yes -vvv
+        pytest --cov=nornir_pyxl --color=yes -vvv
