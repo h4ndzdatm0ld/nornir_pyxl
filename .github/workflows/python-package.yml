@@ -36,7 +36,7 @@ jobs:
         pip install poetry
         poetry install --no-interaction --no-dev
     - name: shell
-      run: potery shell
+      run: poetry shell
     - name: Lint & Code Format
       run: flake8 .
     - name: Test with pytest
