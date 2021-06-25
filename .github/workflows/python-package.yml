@@ -25,21 +25,24 @@ jobs:
       with:
         python-version: ${{ matrix.python-version }}
         architecture: x64
+    - uses: Gr1N/setup-poetry@v4
+    - run: poetry --version
     - name: Install dependencies
       run: |
         pip install poetry
         poetry install --no-interaction --no-dev
-        poetry shell
     - name: Lint & Code Format
       run: |
+        echo 'Running Flake8' && \
+        poetry run flake8 . && \
         echo 'Running Black' && \
-        black --check --diff . && \
+        poetry run black --check --diff . && \
         echo 'Running Yamllint' && \
-        yamllint . && \
+        poetry run yamllint . && \
         echo 'Running pydocstyle' && \
-        pydocstyle . && \
+        poetry run pydocstyle . && \
         echo 'Running Bandit' && \
-        bandit --recursive ./ --configfile .bandit.yml
+        poetry run bandit --recursive ./ --configfile .bandit.yml
     - name: Test with pytest
       run: |
-        pytest --cov=nornir_pyxl --color=yes -vvv
+        poetry run pytest --cov=nornir_pyxl --color=yes -vvv
