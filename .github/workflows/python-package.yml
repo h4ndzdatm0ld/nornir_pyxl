@@ -27,22 +27,17 @@ jobs:
         architecture: x64
     - uses: Gr1N/setup-poetry@v4
     - run: poetry --version
+    - uses: actions/cache@v2
+      with:
+        path: ~/.cache/pypoetry/virtualenvs
+        key: ${{ runner.os }}-poetry-${{ hashFiles('poetry.lock') }}
     - name: Install dependencies
       run: |
         pip install poetry
         poetry install --no-interaction --no-dev
     - name: Lint & Code Format
-      run: |
-        echo 'Running Flake8' && \
-        poetry run flake8 . && \
-        echo 'Running Black' && \
-        poetry run black --check --diff . && \
-        echo 'Running Yamllint' && \
-        poetry run yamllint . && \
-        echo 'Running pydocstyle' && \
-        poetry run pydocstyle . && \
-        echo 'Running Bandit' && \
-        poetry run bandit --recursive ./ --configfile .bandit.yml
+      run: poetry run flake8 .
+
     - name: Test with pytest
       run: |
         poetry run pytest --cov=nornir_pyxl --color=yes -vvv
