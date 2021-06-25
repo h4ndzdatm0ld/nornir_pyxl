@@ -44,3 +44,4 @@ Tasks
 _____
 
 * **pyxl_ez_data** - Loads an XLSX file and creates a list of dictionaries.
+* **pyxl_map_data** - Loads an XLSX file and creates a list of dictionaries based on a user provided ENUM map.
