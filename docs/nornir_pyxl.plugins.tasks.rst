@@ -4,10 +4,10 @@ nornir\_pyxl.plugins.tasks package
 Submodules
 ----------
 
-nornir\_pyxl.plugins.tasks.wb\_sdata module
+nornir_pyxl.plugins.tasks.pyxl_ez_data module
 -------------------------------------------
 
-.. automodule:: nornir_pyxl.plugins.tasks.wb_sdata
+.. automodule:: nornir_pyxl.plugins.tasks.pyxl_ez_data
    :members:
    :undoc-members:
    :show-inheritance:
