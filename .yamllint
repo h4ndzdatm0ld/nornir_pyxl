@@ -57,3 +57,5 @@ rules:
   trailing-spaces: "enable"
   truthy:
     level: "warning"
+ignore: |
+  /.github/workflows/python-app.yml
