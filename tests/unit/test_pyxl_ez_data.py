@@ -1,12 +1,10 @@
 #! /usr/bin/python3
 """Nornir Pyxl Ez Data UnitTests."""
-import os
 from nornir_pyxl.plugins.tasks import pyxl_ez_data
+from tests.conftest import DIR_PATH
 
-data_dir = f"{os.path.dirname(os.path.realpath(__file__))}/test_data"
-
-WORKING_WORKBOOK = f"{data_dir}/working_example_wb.xlsx"
-BROKEN_WORKBOOK = f"{data_dir}/broken_example_wb.xlsx"
+WORKING_WORKBOOK = f"{DIR_PATH}/unit/test_data/working_example_wb.xlsx"
+BROKEN_WORKBOOK = f"{DIR_PATH}/unit/test_data/broken_example_wb.xlsx"
 SHEETNAME = "IP_DATA"
 
 

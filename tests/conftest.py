@@ -7,21 +7,24 @@ from nornir import InitNornir
 from nornir.core.state import GlobalState
 
 global_data = GlobalState(dry_run=True)
+DIR_PATH = os.path.dirname(os.path.realpath(__file__))
 
 
 @pytest.fixture(scope="session", autouse=True)
 def nornir():
     """Initializes nornir"""
-    dir_path = os.path.dirname(os.path.realpath(__file__))
-
     nr_nr = InitNornir(
         inventory={
             "plugin": "SimpleInventory",
             "options": {
-                "host_file": f"{dir_path}/inventory_data/hosts.yaml",
-                "group_file": f"{dir_path}/inventory_data/groups.yaml",
-                "defaults_file": f"{dir_path}/inventory_data/defaults.yaml",
+                "host_file": f"{DIR_PATH}/inventory_data/hosts.yaml",
+                "group_file": f"{DIR_PATH}/inventory_data/groups.yaml",
+                "defaults_file": f"{DIR_PATH}/inventory_data/defaults.yaml",
             },
+        },
+        logging={
+            "log_file": f"{DIR_PATH}/unit/test_data/nornir_test.log",
+            "level": "DEBUG",
         },
         dry_run=True,
     )
