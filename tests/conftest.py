@@ -7,7 +7,6 @@ from nornir.core.state import GlobalState
 
 global_data = GlobalState(dry_run=True)
 DIR_PATH = os.path.dirname(os.path.realpath(__file__))
-FIXTURES = f"{os.path.dirname(os.path.realpath(__file__))}/fixtures"
 
 # If NORNIR_LOG set to True, the log won't be deleted in teardown.
 nornir_logfile = os.environ.get("NORNIR_LOG", False)
