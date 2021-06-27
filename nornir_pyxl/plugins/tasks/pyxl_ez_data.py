@@ -1,7 +1,7 @@
 """Nornir Pyxl Ez Data Loader."""
 from nornir.core.task import Result, Task
 from nornir_pyxl.plugins.tasks.helpers import open_excel_wb
-from .helpers import standardize
+from .helpers import standardize, all_false, check_value
 
 
 def pyxl_ez_data(
@@ -33,10 +33,15 @@ def pyxl_ez_data(
     """
     wsheet = open_excel_wb(workbook, sheetname)
 
+    # Assign EMPTY_CELL to a False Bool. We will use this to filter any empty rows
+    # Generated in the end. Your spreadsheet should actually not have empty rows.
+
+    empty_cell = False
+
     data_key = []
     for value in wsheet.iter_rows(values_only=True):
         for key in value:
-            # Test adding 'or key.isspace():'
+            # Simple move on if there is no key, we need to stay consistent.
             if not key:
                 pass
             else:
@@ -46,15 +51,16 @@ def pyxl_ez_data(
     rows = []
     for rows_list in wsheet.iter_rows(values_only=True, min_row=2):
         row = []
-        for values in rows_list:
-            if not values:
-                pass
+        for value in rows_list:
+            if not value:
+                # Adding a placeholder to not lose order when building dict.
+                row.append(empty_cell)
             else:
-                row.append(values)
+                row.append(check_value(value))
         results = dict(zip(data_key, row))
         rows.append(results)
 
-    # Filter out any potential empty dictionaries
-    res = [row for row in rows if row]
+    # Filter out any potential empty dictionaries due to empty rows/breadcrumbs in XLSX files.
+    res = [row for row in rows if not all_false(row)]
 
     return Result(host=task.host, result=res)

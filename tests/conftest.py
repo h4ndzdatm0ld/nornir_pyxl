@@ -2,16 +2,21 @@
 import os
 from enum import Enum
 import pytest
-
 from nornir import InitNornir
 from nornir.core.state import GlobalState
 
 global_data = GlobalState(dry_run=True)
 DIR_PATH = os.path.dirname(os.path.realpath(__file__))
-
+FIXTURES = f"{os.path.dirname(os.path.realpath(__file__))}/fixtures"
 
 # If NORNIR_LOG set to True, the log won't be deleted in teardown.
 nornir_logfile = os.environ.get("NORNIR_LOG", False)
+
+
+# @pytest.fixture(scope="session")
+# def financial_data():
+#     with open(f"{FIXTURES}/financial_data.json") as f:
+#         return json.load(f)
 
 
 @pytest.fixture(scope="session", autouse=True)
@@ -42,11 +47,11 @@ def workbooks():
     return {
         "working": f"{DIR_PATH}/unit/test_data/working_example_wb.xlsx",
         "broken": f"{DIR_PATH}/unit/test_data/broken_example_wb.xlsx",
+        "financial_data": f"{DIR_PATH}/unit/test_data/financial_example_wb.xlsx",
         "sheetname": "IP_DATA",
     }
 
 
-@pytest.fixture(scope="session", autouse=True)
 def teardown_class():
     """Teardown the automatically created log file by Nornir."""
     if not nornir_logfile:
@@ -121,3 +126,118 @@ class DataMap(Enum):
     SITE_ID = 0
     CLLI = 1
     SYSTEM_NAME = 2
+
+
+@pytest.fixture
+def financial_results():
+    """Results of financial sheet as expected."""
+    return [
+        {
+            "cogs": 16185,
+            "country": "Canada",
+            "date": "2014-01-01 00:00:00",
+            "discount_band": False,
+            "discounts": False,
+            "gross_sales": 32370,
+            "manufacturing_price": 3,
+            "month_name": "January",
+            "month_number": 1,
+            "product": "Carretera",
+            "profit": 16185,
+            "sale_price": 20,
+            "sales": 32370,
+            "segment": "Government",
+            "units_sold": 1618.5,
+            "year": 2014,
+        },
+        {
+            "cogs": 13210,
+            "country": "Germany",
+            "date": "2014-01-01 00:00:00",
+            "discount_band": False,
+            "discounts": False,
+            "gross_sales": 26420,
+            "manufacturing_price": 3,
+            "month_name": "January",
+            "month_number": 1,
+            "product": False,
+            "profit": 13210,
+            "sale_price": 20,
+            "sales": 26420,
+            "segment": "Government",
+            "units_sold": 1321,
+            "year": 2014,
+        },
+        {
+            "cogs": 21780,
+            "country": "France",
+            "date": "2014-06-01 00:00:00",
+            "discount_band": False,
+            "discounts": False,
+            "gross_sales": 32670,
+            "manufacturing_price": 3,
+            "month_name": "June",
+            "month_number": 6,
+            "product": "Carretera",
+            "profit": 10890,
+            "sale_price": 15,
+            "sales": 32670,
+            "segment": "Midmarket",
+            "units_sold": 2178,
+            "year": 2014,
+        },
+        {
+            "cogs": 8880,
+            "country": "Germany",
+            "date": "2014-06-01 00:00:00",
+            "discount_band": False,
+            "discounts": False,
+            "gross_sales": 13320,
+            "manufacturing_price": 3,
+            "month_name": "June",
+            "month_number": 6,
+            "product": "Carretera",
+            "profit": 4440,
+            "sale_price": 15,
+            "sales": 13320,
+            "segment": "Midmarket",
+            "units_sold": 888,
+            "year": 2014,
+        },
+        {
+            "cogs": 24700,
+            "country": False,
+            "date": "2014-06-01 00:00:00",
+            "discount_band": False,
+            "discounts": False,
+            "gross_sales": 37050,
+            "manufacturing_price": 3,
+            "month_name": "June",
+            "month_number": 6,
+            "product": "Carretera",
+            "profit": 12350,
+            "sale_price": 15,
+            "sales": 37050,
+            "segment": "Midmarket",
+            "units_sold": 2470,
+            "year": 2014,
+        },
+        {
+            "cogs": 393380,
+            "country": "Germany",
+            "date": "2014-12-01 00:00:00",
+            "discount_band": False,
+            "discounts": False,
+            "gross_sales": 529550,
+            "manufacturing_price": 3,
+            "month_name": "December",
+            "month_number": 12,
+            "product": "Carretera",
+            "profit": 136170,
+            "sale_price": 350,
+            "sales": 529550,
+            "segment": "Government",
+            "units_sold": 1513,
+            "year": 2014,
+        },
+    ]
