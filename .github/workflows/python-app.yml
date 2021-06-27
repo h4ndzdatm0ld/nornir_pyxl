@@ -12,15 +12,14 @@ on:
   pull_request:
     branches:
       - "**"
+
 jobs:
   build:
-
     runs-on: ubuntu-latest
     strategy:
       fail-fast: false
       matrix:
         python-version: [3.8, 3.9]
-
     steps:
     # Clone code to workspace
     - uses: actions/checkout@v2
@@ -47,3 +46,5 @@ jobs:
     - name: Test with pytest
       run: |
         poetry run pytest --cov=nornir_pyxl --color=yes -vvv
+    - name: Upload coverage
+      uses: codecov/codecov-action@v1
