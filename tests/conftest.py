@@ -40,11 +40,11 @@ def workbooks():
     return {
         "working": f"{DIR_PATH}/unit/test_data/working_example_wb.xlsx",
         "broken": f"{DIR_PATH}/unit/test_data/broken_example_wb.xlsx",
+        "financial_data": f"{DIR_PATH}/unit/test_data/financial_example_wb.xlsx",
         "sheetname": "IP_DATA",
     }
 
 
-@pytest.fixture(scope="session", autouse=True)
 def teardown_class():
     """Teardown the automatically created log file by Nornir."""
     if not nornir_logfile:
