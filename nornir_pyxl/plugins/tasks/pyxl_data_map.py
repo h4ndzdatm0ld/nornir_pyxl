@@ -58,7 +58,6 @@ def pyxl_data_map(
         if "NESTED_DICT" in mapping.__members__:
             dict_key = row[mapping.NESTED_DICT.value].value
             row_map[dict_key] = {}
-
         for enum_map in mapping:
             if "NESTED_DICT" in mapping.__members__:
                 # Skip over nested_dict key

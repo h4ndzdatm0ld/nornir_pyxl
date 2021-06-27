@@ -5,11 +5,12 @@ description = "OpenPyxl plugin for Nornir"
 authors = ["Hugo <hugotinoco@icloud.com>"]
 readme = "README.md"
 repository = "https://github.com/h4ndzdatm0ld/nornir_pyxl"
+keywords = ["nornir", "open_pyxl", "pyxl"]
+
 [tool.poetry.dependencies]
 python = "^3.8"
 openpyxl = "^3.0.5"
 nornir = {version = "^3.0.0", allow-prereleases = true}
-nornir-utils = "^0.1.2"
 
 [tool.poetry.dev-dependencies]
 black = {version = "^20.8b1", allow-prereleases = true}
@@ -23,6 +24,7 @@ ipython = "^7.24.1"
 flake8 = "^3.9.2"
 yamllint = "^1.26.1"
 bandit = "^1.7.0"
+nornir-utils = "^0.1.2"
 
 [build-system]
 requires = ["poetry-core>=1.0.0"]
