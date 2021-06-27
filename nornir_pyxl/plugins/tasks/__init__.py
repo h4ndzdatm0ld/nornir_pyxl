@@ -1,5 +1,3 @@
-"""Init."""
-from .pyxl_ez_data import pyxl_ez_data
-from .pyxl_data_map import pyxl_data_map
+from .wb_sdata import wb_sdata
 
-__all__ = ("pyxl_ez_data", "pyxl_data_map")
+__all__ = "wb_sdata"
