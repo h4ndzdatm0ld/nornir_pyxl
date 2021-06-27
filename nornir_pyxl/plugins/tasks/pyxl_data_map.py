@@ -31,7 +31,7 @@ def pyxl_data_map(
 
     Examples:
         nr.run(task=pyxl_map_data, workbookfile="example-wb.xlsx',
-               sheetname='ip_data', mapping=DataMap)
+               sheetname='ip_data', mapping=DataMap, row_min=2)
 
     Returns:
         Result object with the following attributes set:
