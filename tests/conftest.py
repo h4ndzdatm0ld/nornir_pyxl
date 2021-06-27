@@ -10,6 +10,10 @@ global_data = GlobalState(dry_run=True)
 DIR_PATH = os.path.dirname(os.path.realpath(__file__))
 
 
+# If NORNIR_LOG set to True, the log won't be deleted in teardown.
+nornir_logfile = os.environ.get("NORNIR_LOG", False)
+
+
 @pytest.fixture(scope="session", autouse=True)
 def nornir():
     """Initializes nornir"""
@@ -30,6 +34,25 @@ def nornir():
     )
     nr_nr.data = global_data
     return nr_nr
+
+
+@pytest.fixture(scope="session")
+def workbooks():
+    """Return paths to test_data workbooks, etc."""
+    return {
+        "working": f"{DIR_PATH}/unit/test_data/working_example_wb.xlsx",
+        "broken": f"{DIR_PATH}/unit/test_data/broken_example_wb.xlsx",
+        "sheetname": "IP_DATA",
+    }
+
+
+@pytest.fixture(scope="session", autouse=True)
+def teardown_class():
+    """Teardown the automatically created log file by Nornir."""
+    if not nornir_logfile:
+        nornir_log = f"{DIR_PATH}/unit/test_data/nornir_test.log"
+        if os.path.exists(nornir_log):
+            os.remove(nornir_log)
 
 
 @pytest.fixture(scope="function", autouse=True)

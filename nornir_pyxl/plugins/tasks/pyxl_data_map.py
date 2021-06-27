@@ -31,7 +31,7 @@ def pyxl_data_map(
 
     Examples:
         nr.run(task=pyxl_map_data, workbookfile="example-wb.xlsx',
-               sheetname='ip_data', mapping=DataMap)
+               sheetname='ip_data', mapping=DataMap, row_min=2)
 
     Returns:
         Result object with the following attributes set:
@@ -58,7 +58,6 @@ def pyxl_data_map(
         if "NESTED_DICT" in mapping.__members__:
             dict_key = row[mapping.NESTED_DICT.value].value
             row_map[dict_key] = {}
-
         for enum_map in mapping:
             if "NESTED_DICT" in mapping.__members__:
                 # Skip over nested_dict key

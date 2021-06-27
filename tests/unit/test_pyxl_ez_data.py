@@ -1,39 +1,34 @@
 #! /usr/bin/python3
 """Nornir Pyxl Ez Data UnitTests."""
 from nornir_pyxl.plugins.tasks import pyxl_ez_data
-from tests.conftest import DIR_PATH
-
-WORKING_WORKBOOK = f"{DIR_PATH}/unit/test_data/working_example_wb.xlsx"
-BROKEN_WORKBOOK = f"{DIR_PATH}/unit/test_data/broken_example_wb.xlsx"
-SHEETNAME = "IP_DATA"
 
 
-def test_excel_file(nornir, get_success_ez_data):
+def test_excel_file(nornir, get_success_ez_data, workbooks):
     """Testing valid excel file."""
     data = nornir.run(
         task=pyxl_ez_data,
-        workbook=WORKING_WORKBOOK,
-        sheetname=SHEETNAME,
+        workbook=workbooks["working"],
+        sheetname=workbooks["sheetname"],
     )
     assert data["test-nomad"][0].result[0] == get_success_ez_data
 
 
-def test_wrong_sheetname(nornir):
+def test_wrong_sheetname(nornir, workbooks):
     """Attempt to open a spreadsheet that doesn't exist."""
     data = nornir.run(
         task=pyxl_ez_data,
-        workbook=BROKEN_WORKBOOK,
-        sheetname=SHEETNAME,
+        workbook=workbooks["broken"],
+        sheetname=workbooks["sheetname"],
     )
     assert data["test-nomad"][0].failed
     assert str(data["test-nomad"][0].exception) == "IP_DATA does not exist."
 
 
-def test_bad_workbook_success(nornir, get_success_ez_data_bad_wb):
+def test_bad_workbook_success(nornir, get_success_ez_data_bad_wb, workbooks):
     """Load the poorly populated spreadsheet and generate only whats available."""
     data = nornir.run(
         task=pyxl_ez_data,
-        workbook=BROKEN_WORKBOOK,
+        workbook=workbooks["broken"],
         sheetname="SAR-Ax",
     )
     assert data["test-nomad"][0].result == get_success_ez_data_bad_wb
@@ -44,7 +39,7 @@ def test_wrong_filename(nornir):
     data = nornir.run(
         task=pyxl_ez_data,
         workbook="I_dont_exist.xlsx",
-        sheetname=SHEETNAME,
+        sheetname="no_worksheet",
     )
     assert data["test-nomad"][0].failed
     assert str(data["test-nomad"][0].exception) == "I_dont_exist.xlsx does not exist."
@@ -55,7 +50,7 @@ def test_wrong_extension(nornir):
     data = nornir.run(
         task=pyxl_ez_data,
         workbook="file.xxx",
-        sheetname=SHEETNAME,
+        sheetname="no_worksheet",
     )
     assert data["test-nomad"][0].failed
     assert str(data["test-nomad"][0].exception) == "file.xxx must end with 'xlsx'."
