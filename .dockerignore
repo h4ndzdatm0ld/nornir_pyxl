@@ -1,0 +1,9 @@
+*.tar.gz
+.env
+.pytest_cache
+__pycache__/
+.git/
+.gitignore
+.gitlab-ci.yml
+Dockerfile
+docker-compose.yml
