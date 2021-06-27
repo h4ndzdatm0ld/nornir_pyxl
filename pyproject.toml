@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "nornir_pyxl"
-version = "1.0.0"
+version = "1.0.1"
 description = "OpenPyxl plugin for Nornir"
 authors = ["Hugo <hugotinoco@icloud.com>"]
 readme = "README.md"

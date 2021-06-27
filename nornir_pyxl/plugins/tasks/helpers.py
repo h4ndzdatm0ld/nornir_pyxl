@@ -1,5 +1,6 @@
 """Helper Functions."""
 from pathlib import Path
+import datetime
 from openpyxl import load_workbook
 
 
@@ -10,6 +11,41 @@ def standardize(some_str):
         some_str (str): Manipulated string
     """
     return some_str.strip().replace(" ", "_").replace("-", "_").replace("'", "").lower()
+
+
+def check_value(value):
+    """Checks the contents of the value passed into the function. If condition isn't met just return the same value.
+    Expect this to expand as bugs arise.
+
+    Args:
+        value (Any): Any type of value found within a row
+
+    Returns:
+        str: datetime object casted to str to form proper JSON
+    """
+    if isinstance(value, datetime.datetime):
+        # Maybe add more logic here and standardize.
+        # 'date': '2014-01-01 00:00:00', - > Looks terrible
+        return str(value)
+    if isinstance(value, str):
+        # If value is actually an interger, return as such.
+        if value.isdigit():
+            return int(value)
+    if value in ("None", "none"):
+        return False
+    return value
+
+
+def all_false(some_dict):
+    """Check all values of a dictionary are not False.
+
+    Args:
+        some_dict (dict): A dictionary that will be evaluated against the condition.
+
+    Returns:
+        bool: True or False depending on ALL values.
+    """
+    return all(value is False for value in some_dict.values())
 
 
 def _calculate_reset(sheet_obj):
@@ -42,7 +78,7 @@ def _check_file(file_name):
 
 
 def open_excel_wb(file_name, sheetname):
-    """Load an Excel Workbook and convert to Yaml.
+    """Load an Excel Workbook.
 
     Args:
         file_name (str): File Path to Excel Workbook

@@ -54,3 +54,15 @@ def test_wrong_extension(nornir):
     )
     assert data["test-nomad"][0].failed
     assert str(data["test-nomad"][0].exception) == "file.xxx must end with 'xlsx'."
+
+
+def test_excel_file_financial_data(nornir, workbooks, financial_results):
+    """Testing valid excel file."""
+    data = nornir.run(
+        task=pyxl_ez_data,
+        workbook=workbooks["financial_data"],
+        sheetname="Sheet1",
+    )
+    assert data["test-nomad"][0].result == financial_results
+    # The 7th row should be dropped by our check_false helper function as it's all empty cells.
+    assert len(data["test-nomad"][0].result) == 6

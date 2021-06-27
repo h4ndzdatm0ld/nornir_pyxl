@@ -1,4 +1,7 @@
 {
     "python.pythonPath": "/home/htinoco/.cache/pypoetry/virtualenvs/nornir-pyxl-lq6g4_Tv-py3.8/bin/python",
-    "python.linting.pylintEnabled": true
+    "python.linting.pylintEnabled": true,
+    "cSpell.words": [
+        "isdigit"
+    ]
 }
