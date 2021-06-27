@@ -13,12 +13,6 @@ FIXTURES = f"{os.path.dirname(os.path.realpath(__file__))}/fixtures"
 nornir_logfile = os.environ.get("NORNIR_LOG", False)
 
 
-# @pytest.fixture(scope="session")
-# def financial_data():
-#     with open(f"{FIXTURES}/financial_data.json") as f:
-#         return json.load(f)
-
-
 @pytest.fixture(scope="session", autouse=True)
 def nornir():
     """Initializes nornir"""
